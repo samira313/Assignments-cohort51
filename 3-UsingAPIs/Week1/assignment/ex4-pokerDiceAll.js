@@ -22,14 +22,13 @@ Can you explain why? Please add your answer as a comment to the end of the
 exercise file.
 ------------------------------------------------------------------------------*/
 
-// The line below makes the rollDie() function available to this file.
-// Do not change or remove it.
+
 import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
-  // TODO Refactor this function
   const dice = [1, 2, 3, 4, 5];
-  return rollDie(1);
+  const diceRolls = dice.map(() => rollDie());
+  return Promise.all(diceRolls);
 }
 
 function main() {
@@ -43,4 +42,8 @@ if (process.env.NODE_ENV !== 'test') {
   main();
 }
 
-// TODO Replace this comment by your explanation that was asked for in the assignment description.
+
+// The dice that have not yet finished their roll continue to do so,
+// because of asynchronous nature of Promise.all().
+//  The Promise.all() method runs all the promises concurrently,
+// but it resolves or rejects only when all the promises succeed or any single promise fails. 
