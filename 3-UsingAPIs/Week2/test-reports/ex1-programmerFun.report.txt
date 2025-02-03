@@ -1,0 +1,23 @@
+*** Unit Test Error Report ***
+
+Debugger attached.
+Debugger attached.
+(node:10012) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ PASS  .dist/3-UsingAPIs/Week2/unit-tests/ex1-programmerFun.test.js (12.752 s)
+  api-wk2-ex1-programmerFun
+    ✅ HTML should be syntactically valid (139 ms)
+    ✅ should have all TODO comments removed (1 ms)
+    ✅ should use `fetch()`
+    ✅ should use async/wait
+    ✅ should use try/catch
+
+Test Suites: 1 passed, 1 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        13.423 s
+Ran all test suites matching /C:\\Users\\Samira\\Desktop\\w2-assignments-APIs\\Assignments-cohort51\\.dist\\3-UsingAPIs\\Week2\\unit-tests\\ex1-programmerFun.test.js/i.
+Waiting for the debugger to disconnect...
+Waiting for the debugger to disconnect...
+No linting errors detected.
+No spelling errors detected.
