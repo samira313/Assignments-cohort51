@@ -21,18 +21,62 @@ Use async/await and try/catch to handle promises.
 Try and avoid using global variables. As much as possible, try and use function 
 parameters and return values to pass data back and forth.
 ------------------------------------------------------------------------------*/
-function fetchData(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+const apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=151';
+
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Data could not be fetched, status = ' + response.status);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-function fetchAndPopulatePokemons(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchAndPopulatePokemons(apiUrl, selectElement) {
+  try {
+    const data = await fetchData(apiUrl);
+    if (!data || !data.results) throw new Error('No Pokémon data available');
+
+    data.results.forEach((pokemon) => {
+      const option = document.createElement('option');
+      option.textContent = pokemon.name;
+      option.value = pokemon.url;
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error populating Pokémon:', error);
+  }
 }
 
-function fetchImage(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchImage(url) {
+  const pokemonData = await fetchData(url);
+  if (!pokemonData || !pokemonData.sprites)
+    console.error('No Pokémon image available');
+  return pokemonData.sprites.front_default;
 }
 
-function main() {
-  // TODO complete this function
+async function main() {
+  const pokemonBox = document.createElement('div');
+  pokemonBox.classList.add('pokemon-box');
+  document.body.appendChild(pokemonBox);
+  const select = document.createElement('select');
+  pokemonBox.appendChild(select);
+  const defaultOption = document.createElement('option');
+  defaultOption.textContent = 'Select a Pokémon';
+  select.appendChild(defaultOption);
+  const img = document.createElement('img');
+  pokemonBox.appendChild(img);
+
+  await fetchAndPopulatePokemons(apiUrl, select);
+
+  select.addEventListener('change', async (event) => {
+    const fetchedImage = await fetchImage(event.target.value);
+    img.src = fetchedImage;
+  });
 }
+
+window.addEventListener('load', main);
