@@ -16,28 +16,18 @@ import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
   const results = [];
-
-  return rollDie(1)
-    .then((value) => {
-      results.push(value);
-      return rollDie(2);
-    })
-    .then((value) => {
-      results.push(value);
-      return rollDie(3);
-    })
-    .then((value) => {
-      results.push(value);
-      return rollDie(4);
-    })
-    .then((value) => {
-      results.push(value);
-      return rollDie(5);
-    })
-    .then((value) => {  
-      results.push(value);
-      return results;
-    });
+ function rollAndStore (n) {
+  return rollDie(n).then((value) => {
+    results.push(value);
+    return value;
+  })
+ }
+return rollAndStore(1)
+.then(() => rollAndStore(2))
+ .then(() => rollAndStore(3))
+ .then(() => rollAndStore(4))
+  .then(() => rollAndStore(5))
+  .then(() => results);
 }
 
 function main() {

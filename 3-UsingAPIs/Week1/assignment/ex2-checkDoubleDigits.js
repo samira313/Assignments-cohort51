@@ -13,21 +13,13 @@ Complete the function called `checkDoubleDigits` such that:
 ------------------------------------------------------------------------------*/
 export function checkDoubleDigits(number) {
   return new Promise((resolve, reject) => {
-    if (is2Digit(number)) {
+    if ((number >= 10) && (number <= 99)) {
       resolve("This is a double digit number!");
-    } else {
-      reject(new Error(`Expected a double digit number but got ${number}`));
     }
+
+    reject(new Error(`Expected a double digit number but got ${number}`));
   });
 }
-const is2Digit = (number) => {
-  let count = 0;
-  while (number) {
-    number = Math.floor((number /= 10));
-    count++;
-  }
-  return count === 2;
-};
 
 function main() {
   checkDoubleDigits(9) // should reject
